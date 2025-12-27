@@ -65,8 +65,10 @@ Vesper uses CMake and depends on several libraries. Below are instructions for e
   ```
 4. Install dependencies via vcpkg:
   ```bash
-  ./vcpkg install glfw3 glew curl nlohmann-json openal-soft  ffmpeg[avcodec,avformat,avutil,swresample] imgui[glfw-binding,opengl3-binding] --triplet x64-windows  # Note: imgui is optional — if not installed, it will be fetched automatically from GitHub.
+  ./vcpkg install glfw3 glew curl nlohmann-json openal-soft \
+      ffmpeg[avcodec,avformat,avutil,swresample] imgui[glfw-binding,opengl3-binding] --triplet x64-windows
   ```
+  > Note: imgui is optional — if not installed, it will be fetched automatically from GitHub.
   
 5. Build Vesper:
   ```bash
