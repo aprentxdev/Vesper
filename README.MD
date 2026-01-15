@@ -1,5 +1,5 @@
 # **Vesper**
-**Local music player with metadata, lyrics, and upcoming spectrum visualization**
+**Local music player... with immediate mode gui, ID3 tags, album art, lyrics**
 
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-green" alt="License MIT" />
