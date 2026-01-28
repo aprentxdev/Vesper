@@ -10,15 +10,15 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/CMake-3.28%2B-blue" alt="CMake" />
+  <img src="https://img.shields.io/badge/CMake-3.28+-blue" alt="CMake" />
+  <img src="https://img.shields.io/badge/OpenGL-required-orange" alt="OpenGL" />
   <img src="https://img.shields.io/badge/OpenAL-required-orange" alt="OpenAL" />
   <img src="https://img.shields.io/badge/FFmpeg-required-orange" alt="FFmpeg" />
-  <img src="https://img.shields.io/badge/ImGui-required-orange" alt="ImGui" />
-  <img src="https://img.shields.io/badge/GLEW-required-orange" alt="GLEW" />
-  <img src="https://img.shields.io/badge/GLFW-required-orange" alt="GLFW" />
-  <img src="https://img.shields.io/badge/OpenGL-required-orange" alt="OpenGL" />
-  <img src="https://img.shields.io/badge/JSON-nlohmann-orange" alt="nlohmann_json" />
-  <img src="https://img.shields.io/badge/CURL-required-orange" alt="libcurl" />
+  <img src="https://img.shields.io/badge/ImGui-FetchContent-blueviolet" alt="ImGui" />
+  <img src="https://img.shields.io/badge/GLFW-FetchContent-blueviolet" alt="GLFW" />
+  <img src="https://img.shields.io/badge/nlohmann_json-FetchContent-blueviolet" alt="nlohmann_json" />
+  <img src="https://img.shields.io/badge/cpr-FetchContent-blueviolet" alt="cpr" />
+  <img src="https://img.shields.io/badge/GLAD-external-green" alt="GLAD" />
 </p>
 
 <p align="center">
@@ -40,7 +40,7 @@
 
 ## Planned Features
 
-- **Next:** Real-time spectrum visualizer, drag & drop support, playlists, search  
+- **Next:** Drag & drop support, playlists, search  
 - **Future:** Settings, EQ
 
 ---
@@ -65,10 +65,8 @@ Vesper uses CMake and depends on several libraries. Below are instructions for e
   ```
 4. Install dependencies via vcpkg:
   ```bash
-  ./vcpkg install glfw3 glew curl nlohmann-json openal-soft \
-      ffmpeg[avcodec,avformat,avutil,swresample] imgui[glfw-binding,opengl3-binding] --triplet x64-windows
+  ./vcpkg install openal-soft ffmpeg[avcodec,avformat,avutil,swresample]  --triplet x64-windows
   ```
-  > Note: imgui is optional — if not installed, it will be fetched automatically from GitHub.
   
 5. Build Vesper:
   ```bash
@@ -81,14 +79,13 @@ Vesper uses CMake and depends on several libraries. Below are instructions for e
 ```bash
 sudo apt update  
 sudo apt install build-essential cmake pkg-config \
-    libglfw3-dev libglew-dev libcurl4-openssl-dev nlohmann-json3-dev \
     libopenal-dev libavformat-dev libavcodec-dev libavutil-dev libswresample-dev \
     libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
 ```
 For other distros:
-- Arch: ``pacman -S base-devel glfw glew curl nlohmann-json openal ffmpeg``
+- Arch: ``pacman -S base-devel openal ffmpeg``
 
-- Fedora: ``dnf install glfw-devel glew-devel curl-devel nlohmann-json-devel openal-soft-devel ffmpeg-devel``  
+- Fedora: ``dnf install openal-soft-devel ffmpeg-devel``  
 
 #### Then build:
 ```bash
@@ -100,7 +97,7 @@ cmake --build build
 
 ### macOS
 ```bash
-brew install cmake glfw glew curl nlohmann-json openal-soft ffmpeg
+brew install cmake openal-soft ffmpeg
 ```
 
 Build the same way as on Linux.
