@@ -2,3 +2,5 @@
 .vscode
 build
 release
+out
+CMakeSettings.json

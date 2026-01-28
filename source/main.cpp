@@ -27,11 +27,14 @@ int main(int, char**) {
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
-    glewExperimental = GL_TRUE;
-    if (glewInit() != GLEW_OK) {
-        std::cerr << "Failed to initialize GLEW" << std::endl;
-        return 1;
+    int version = gladLoadGL(glfwGetProcAddress);
+    if (version == 0) {
+        std::cerr << "Failed to initialize OpenGL context\n";
+        glfwDestroyWindow(window);
+        glfwTerminate();
+        return -1;
     }
+    std::cout << "Loaded OpenGL "  << GLAD_VERSION_MAJOR(version) << "." << GLAD_VERSION_MINOR(version) << "\n";
     
     SetupImGui(window);
     GuiLoop(window);
