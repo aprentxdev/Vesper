@@ -76,13 +76,21 @@ static void UpdateCurrentTrackMetadata()
     if (!lyricsLoading.load()) {
         lyricsLoading = true;
         activeFileLyrics.clear();
+
         std::thread([title = meta.title, artist = meta.artist]() {
-            activeFileLyrics = FetchLyrics(title, artist);
-            if (activeFileLyrics.empty()) {
+            auto optLyrics = getLyrics(artist, title);
+            
+            if (optLyrics.has_value()) {
+                activeFileLyrics = std::move(optLyrics.value());
+                if (activeFileLyrics.empty()) {
+                    activeFileLyrics = "Lyrics empty";
+                }
+            } else {
                 activeFileLyrics = "No lyrics found";
             }
+
             lyricsLoading = false;
-            }).detach();
+        }).detach();
     }
 
     LoadAlbumArtAsync(currentPath);

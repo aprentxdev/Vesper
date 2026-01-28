@@ -9,8 +9,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(OpenGL REQUIRED)
-find_package(CURL REQUIRED)
-find_package(nlohmann_json REQUIRED)
 find_package(OpenAL REQUIRED)
 if(WIN32)
     find_package(FFMPEG REQUIRED COMPONENTS avcodec avformat avutil swresample)
@@ -18,11 +16,6 @@ else()
     find_package(PkgConfig REQUIRED)
     pkg_check_modules(FFMPEG REQUIRED libavformat libavcodec libavutil libswresample)
 endif()
-
-add_library(glad STATIC
-    external/glad/src/gl.c
-)
-target_include_directories(glad PUBLIC external/glad/include)
 
 include(FetchContent)
 
@@ -35,6 +28,11 @@ set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(glfw)
+
+add_library(glad STATIC
+    external/glad/src/gl.c
+)
+target_include_directories(glad PUBLIC external/glad/include)
 
 FetchContent_Declare(
     imgui
@@ -56,6 +54,20 @@ target_include_directories(imgui PUBLIC
     ${imgui_SOURCE_DIR}/backends
 )
 target_link_libraries(imgui PUBLIC glfw glad)
+
+FetchContent_Declare(
+    json_nlohmann
+    URL https://github.com/nlohmann/json/releases/download/v3.12.0/json.tar.xz
+)
+FetchContent_MakeAvailable(json_nlohmann)
+
+set(CPR_CURL_USE_LIBPSL OFF CACHE BOOL "" FORCE)
+FetchContent_Declare(
+    cpr
+    GIT_REPOSITORY https://github.com/libcpr/cpr.git
+    GIT_TAG 1.14.1
+)
+FetchContent_MakeAvailable(cpr)
 
 FetchContent_Declare(
     stb_image
@@ -91,7 +103,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     glfw
     glad
     imgui
-    CURL::libcurl
+    cpr::cpr
     nlohmann_json::nlohmann_json
     stb_image
 )
@@ -111,12 +123,6 @@ if(UNIX AND NOT APPLE)
     target_link_libraries(${PROJECT_NAME} PRIVATE X11 Xrandr Xi Xxf86vm Xcursor)
 endif()
 
-
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "${CMAKE_CURRENT_SOURCE_DIR}/cacert.pem"
-        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/"
-)
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${CMAKE_CURRENT_SOURCE_DIR}/fonts"
