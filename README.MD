@@ -70,7 +70,7 @@ Vesper uses CMake and depends on several libraries. Below are instructions for e
   
 5. Build Vesper:
   ```bash
-  git clone https://github.com/eteriaal/Vesper.git  
+  git clone https://github.com/aprentxdev/Vesper.git  
   cd Vesper  
   cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=[path_to_vcpkg]/scripts/buildsystems/vcpkg.cmake  
   cmake --build build --config Release  
@@ -89,7 +89,7 @@ For other distros:
 
 #### Then build:
 ```bash
-git clone https://github.com/eteriaal/Vesper.git
+git clone https://github.com/aprentxdev/Vesper.git
 cd Vesper
 cmake -B build -S .
 cmake --build build
