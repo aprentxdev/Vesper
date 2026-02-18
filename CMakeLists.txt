@@ -1,6 +1,3 @@
-# Vesper - local music player
-# eteriaal 2025-2026 https://github.com/eteriaal/Vesper
-
 cmake_minimum_required(VERSION 3.28...4.2)
 project(Vesper LANGUAGES C CXX)
 

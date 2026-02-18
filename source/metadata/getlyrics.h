@@ -8,5 +8,5 @@
 std::optional<std::string> getLyrics(
     const std::string& artist,
     const std::string& title,
-    const std::string& userAgent = "Vesper[](https://github.com/eteriaal/Vesper)"
+    const std::string& userAgent = "Vesper[](https://github.com/aprentxdev/Vesper)"
 );
